@@ -89,6 +89,7 @@ You'll need to use some type of collaborative software that will enable you both
 
 Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
 ---
+James Ostermiller
 
 ## Your Web Application Title
 Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
