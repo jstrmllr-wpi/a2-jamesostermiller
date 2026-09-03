@@ -1,4 +1,28 @@
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    /* color:var(--color5); */
+    font-family:sans-serif;
+    /* font-size:13px; */
+}
+
 body {
   background:black;
   color:white;
+}
+
+#create-recipe{
+  display:grid;
+  grid-template-columns:max-content 1fr;
+  > * {
+    margin:5px;
+  }
+  label {
+    text-align:right;
+  }
+}
+
+input {
+  padding:5px;
 }

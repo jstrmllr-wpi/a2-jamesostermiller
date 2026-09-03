@@ -1,18 +1,36 @@
 <!doctype html>
 <html lang='en'>
-  <head>
-    <title>CS4241 Assignment 2</title>
-    <meta charset='utf-8' />
-    <script src='js/main.js'></script>
-    <link rel='stylesheet' href='css/main.css' />
-    
-    <!-- get rid of favicon error -->
-    <link rel='icon' href='data:;base64,iVBORw0KGgo=' />
-  </head>
-  <body>
-    <form>
-      <input type='text' id='yourname' value='your name here'>
-      <button>submit</button>
-    </form>
-  </body>
+<head>
+  <title>Recipe Keeper</title>
+  <meta charset='utf-8' />
+  <script src='js/main.js'></script>
+  <link rel='stylesheet' href='css/main.css' />
+  
+  <!-- get rid of favicon error -->
+  <link rel='icon' href='data:;base64,iVBORw0KGgo=' />
+</head>
+
+<body>
+  <h1>Recipes</h1>
+  <form id='create-recipe'>
+    <label for='recipename'>Recipe name:</label>
+    <input type='text' id='recipename' placeholder='Chocolate Chip Cookies'/>
+    <label for='preptime'>Prep time:</label>
+    <unit-wrapper>
+      <input type='number' id='preptime' placeholder='30' />
+      <input-unit>minutes<input-unit>
+    </unit-wrapper>
+    <label for='cooktime'>Cook time:</label>
+    <unit-wrapper>
+      <input type='number' id='cooktime' placeholder='15' />
+      <input-unit>minutes<input-unit>
+    </unit-wrapper>
+    <!-- dropdown for type -->
+    <label for='ingredients'>Ingredients:</label>
+    <textarea id='ingredients' placeholder='- 1 cup sugar&#10- 1 cup flour&#10...'></textarea>
+    <label for='steps'>Steps:</label>
+    <textarea id='steps' placeholder='1. Combine dry ingredients in a small bowl...'></textarea>
+    <button>Create</button>
+  </form>
+</body>
 </html>
