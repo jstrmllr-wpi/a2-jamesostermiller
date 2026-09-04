@@ -34,8 +34,31 @@ const submit = async function( event ) {
 
   const recipeList = document.getElementById('recipe-list')
 
+  recipeList.appendChild(createHTMLRecipeCard(newRecipe))
+}
+
+const loadall = async function( event ) {
+  const response = await fetch( '/data', {
+    method:'GET' 
+  })
+
+  const returnedtext = await response.text()
+
+  allrecipes = JSON.parse( returnedtext )
+  console.log( 'all recipes', allrecipes )
+
+  const recipeList = document.getElementById('recipe-list')
+
+  for(let recipe of allrecipes) {
+    recipeList.appendChild(createHTMLRecipeCard(recipe));
+  }
+}
+
+function createHTMLRecipeCard(newRecipe){
+
   // Create recipe card
   const newRecipeCard = document.createElement('article')
+  newRecipeCard.id = `recipe${newRecipe.index}`
   newRecipeCard.classList.add('recipe-card')
   newRecipeCard.classList.add('border')
 
@@ -48,23 +71,15 @@ const submit = async function( event ) {
   // Add time info to recipe card
   const newTimeInfo = document.createElement('time-info')
   {
-    // Add total time
+    // Add prep time
     let newTime = document.createElement('time-item');
-    let text = document.createTextNode('Total time');
+    let text = document.createTextNode('Prep time');
     newTime.appendChild(text);
     let span = document.createElement('span');
-    text = document.createTextNode(`${newRecipe.totaltime} minutes`);
-    span.appendChild(text);
-    newTime.appendChild(span);
-    newTimeInfo.appendChild(newTime);
-
-    // Add prep time
-    newTime = document.createElement('time-item');
-    text = document.createTextNode('Prep time');
-    newTime.appendChild(text);
-    span = document.createElement('span');
-    text = document.createTextNode(`${newRecipe.preptime} minutes`);
-    span.appendChild(text);
+    if(newRecipe.preptime){
+      text = document.createTextNode(`${newRecipe.preptime} minutes`);
+      span.appendChild(text);
+    }
     newTime.appendChild(span);
     newTimeInfo.appendChild(newTime);
     
@@ -73,8 +88,22 @@ const submit = async function( event ) {
     text = document.createTextNode('Cook time');
     newTime.appendChild(text);
     span = document.createElement('span');
-    text = document.createTextNode(`${newRecipe.cooktime} minutes`);
-    span.appendChild(text);
+    if(newRecipe.cooktime){
+      text = document.createTextNode(`${newRecipe.cooktime} minutes`);
+      span.appendChild(text);
+    }
+    newTime.appendChild(span);
+    newTimeInfo.appendChild(newTime);
+
+    // Add total time
+    newTime = document.createElement('time-item');
+    text = document.createTextNode('Total time');
+    newTime.appendChild(text);
+    span = document.createElement('span');
+    if(newRecipe.totaltime){
+      text = document.createTextNode(`${newRecipe.totaltime} minutes`);
+      span.appendChild(text);
+    }
     newTime.appendChild(span);
     newTimeInfo.appendChild(newTime);
   }
@@ -94,10 +123,42 @@ const submit = async function( event ) {
   newSteps.appendChild(text);
   newRecipeCard.appendChild(newSteps);
 
-  recipeList.appendChild(newRecipeCard)
+  const deleteButtonWrapper = document.createElement('delete-wrapper')
+  const deleteButton = document.createElement('input');
+  deleteButton.setAttribute('type','button')
+  deleteButton.setAttribute('value','Delete')
+  deleteButtonWrapper.appendChild(deleteButton)
+  newRecipeCard.appendChild(deleteButtonWrapper)
+  deleteButton.onclick = deleteRecipe
+
+  return newRecipeCard;
+}
+
+const deleteRecipe = async function( event ) {
+  // stop form submission from trying to load
+  // a new .html page for displaying results...
+  // this was the original browser behavior and still
+  // remains to this day
+  event.preventDefault()
+
+  recipeCard = event.target.parentElement.parentElement
+
+  recipeId = recipeCard.id
+  console.log('id: ', recipeId)
+  index = parseInt(recipeId.charAt(recipeId.length - 1))
+  console.log('index: ', index)
+
+  const response = await fetch( '/delete', {
+    method:'POST',
+    index
+  })
+
+  recipeCard.remove()
 }
 
 window.onload = function() {
+  loadall()
+
   const createform = document.querySelector('#create-recipe')
   createform.onsubmit = submit
 }
