@@ -7,11 +7,14 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+const appdata = [{
+  name: 'Mac n Cheese',
+  preptime: 5,
+  cooktime: 10,
+  totaltime: 15,
+  ingredients: '- Macaroni\n- Cheese\n- Milk\n-Other stuff',
+  steps: '1. Cook the pasta\n2. Add the cheese and milk and other stuff\n3. Eat :)'
+  }]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -39,13 +42,17 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-    // ... do something with the data here!!!
+    newdata = JSON.parse( dataString )
+    newdata.totaltime = newdata.preptime + newdata.cooktime
+    // console.log( data )
+    appdata.push(newdata)
+    // console.log(appdata)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
 
+    textresponse = JSON.stringify(newdata)
     // change this to incorporate data
-    response.end('test')
+    response.end(textresponse)
   })
 }
 

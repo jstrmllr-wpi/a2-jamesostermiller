@@ -3,6 +3,7 @@
 <head>
   <title>Recipe Keeper</title>
   <meta charset='utf-8' />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src='js/main.js'></script>
   <link rel='stylesheet' href='css/main.css' />
   
@@ -11,26 +12,74 @@
 </head>
 
 <body>
-  <h1>Recipes</h1>
-  <form id='create-recipe'>
-    <label for='recipename'>Recipe name:</label>
-    <input type='text' id='recipename' placeholder='Chocolate Chip Cookies'/>
-    <label for='preptime'>Prep time:</label>
-    <unit-wrapper>
-      <input type='number' id='preptime' placeholder='30' />
-      <input-unit>minutes<input-unit>
-    </unit-wrapper>
-    <label for='cooktime'>Cook time:</label>
-    <unit-wrapper>
-      <input type='number' id='cooktime' placeholder='15' />
-      <input-unit>minutes<input-unit>
-    </unit-wrapper>
-    <!-- dropdown for type -->
-    <label for='ingredients'>Ingredients:</label>
-    <textarea id='ingredients' placeholder='- 1 cup sugar&#10- 1 cup flour&#10...'></textarea>
-    <label for='steps'>Steps:</label>
-    <textarea id='steps' placeholder='1. Combine dry ingredients in a small bowl...'></textarea>
-    <button>Create</button>
-  </form>
+  <header>
+    <h1>Recipes</h1>
+    <div>by James Ostermiller</div>
+  </header>
+  
+  <main>
+    <section id='create-recipe-form' class='border'>
+      <h2>New Recipe</h2>
+      <form id='create-recipe'>
+
+        <label for='recipename'>*Recipe name:</label>
+        <input type='text' id='recipename' placeholder='Chocolate Chip Cookies' required/>
+
+        <label for='preptime'>Prep time:</label>
+        <unit-wrapper>
+          <input type='number' id='preptime' placeholder='30' min=0 />
+          <input-unit>minutes<input-unit>
+        </unit-wrapper>
+
+        <label for='cooktime'>Cook time:</label>
+        <unit-wrapper>
+          <input type='number' id='cooktime' placeholder='15' min=0 />
+          <input-unit>minutes<input-unit>
+        </unit-wrapper>
+        
+        <label for='ingredients'>*Ingredients:</label>
+        <textarea required id='ingredients' placeholder='1 cup sugar&#10;1 cup flour&#10;...'></textarea>
+
+        <label for='steps'>*Steps:</label>
+        <textarea required id='steps' placeholder='1. Combine dry ingredients in a small bowl...'></textarea>
+        
+        <input type='submit' value='Create'/>
+      </form>
+    </section>
+
+    <section id='recipe-list' class='border'>
+      <h2>Submitted Recipes</h2>
+      <article class='recipe-card border'>
+        <h3>Pound cake</h1>
+        <time-info>
+          <time-item>Total time <span>50 minutes</span></time-item>
+          <time-item>Prep time <span>20 minutes</span></time-item>
+          <time-item>Cook time <span>30 minutes</span></time-item>
+        </time-info>
+        <ingredient-card class='border'>1 cup flour
+          1 cup sugar
+          1 cup lard
+        </ingredient-card>
+        <step-card class='border'>1. Mash it all together
+          2. Done
+        </step-card>
+      </article>
+      <article class='recipe-card border'>
+        <h3>Pound cake 2.0</h1>
+        <time-info>
+          <time-item>Total time <span>50 minutes</span></time-item>
+          <time-item>Prep time <span>20 minutes</span></time-item>
+          <time-item>Cook time <span>30 minutes</span></time-item>
+        </time-info>
+        <ingredient-card class='border'>1 cup flour
+          1 cup sugar
+          1 cup lard
+        </ingredient-card>
+        <step-card class='border'>1. Mash it all together
+          2. Done
+        </step-card>
+      </article>
+    </section>
+  </main>
 </body>
 </html>
