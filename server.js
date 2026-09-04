@@ -12,7 +12,7 @@ const appdata = [{
   preptime: 5,
   cooktime: 10,
   totaltime: 15,
-  ingredients: '- Macaroni\n- Cheese\n- Milk\n-Other stuff',
+  ingredients: '- Macaroni\n- Cheese\n- Milk\n- Other stuff',
   steps: '1. Cook the pasta\n2. Add the cheese and milk and other stuff\n3. Eat :)',
   index:0
   }]
